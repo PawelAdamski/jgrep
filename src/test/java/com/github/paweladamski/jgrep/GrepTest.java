@@ -34,6 +34,13 @@ public class GrepTest {
         assertThat(output.toString(),equalTo(lines("a","c")));
     }
 
+
+    @Test
+    public void shouldNotFailForEmptyLines() throws IOException {
+        grep.grep(lines("","b",""),output,"b");
+        assertThat(output.toString(),equalTo(lines("b")));
+    }
+
     private String lines(String... lines) {
         String lineSeparator = System.getProperty( "line.separator" );
         return String.join(lineSeparator,lines);
