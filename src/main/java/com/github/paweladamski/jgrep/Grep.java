@@ -9,34 +9,41 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.nio.CharBuffer;
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Grep {
 
-
-
-    public void grep(String input, Writer output, String regex) throws IOException {
-        grep(new StringReader(input),output,regex);
+    public void grep(String input, Writer output, String regex, Function<Line, String>... lineProcessors) throws IOException {
+        grep(new StringReader(input), output, regex,lineProcessors);
     }
 
-
-    public void grep(Reader input, Writer output, String regex) throws IOException {
+    public void grep(Reader input, Writer output, String regex, Function<Line, String>... lineProcessors) throws IOException {
         Pattern pattern = Pattern.compile(regex);
         BufferedWriter writer = new BufferedWriter(output);
-
         BufferedReader reader = new BufferedReader(input);
-        Scanner scanner = new Scanner(reader);
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            if (pattern.matcher(line).find()){
-                writer.write(line);
-                if (scanner.hasNextLine()) {
+        boolean somethingFound = false;
+        for (; ; ) {
+            String line = reader.readLine();
+            if (line == null) {
+                break;
+            }
+            Matcher matcher = pattern.matcher(line);
+            if (matcher.find()) {
+                if (somethingFound) {
                     writer.newLine();
                 }
+                somethingFound = true;
+                for (Function<Line, String> lp : lineProcessors) {
+                    line = lp.apply(new Line(line,matcher));
+                }
+                writer.write(line.toString());
             }
         }
         writer.flush();
-        scanner.close();
+        reader.close();
     }
 }

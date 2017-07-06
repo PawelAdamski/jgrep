@@ -8,20 +8,24 @@ import java.io.Writer;
 
 public class Application {
     public static void main(String[] args) {
-        long start = System.currentTimeMillis();
-        String regex = args[0];
-        File filePath = new File(args[1]);
-        Grep grep = new Grep();
         try {
+            long start = System.currentTimeMillis();
+            String regex = args[0];
+            File filePath = new File(args[1]);
+            Grep grep = new Grep();
             Writer writer  = new OutputStreamWriter(System.out);
+            //grep.main(filePath,regex);
+            //grep.grep(filePath,writer,regex);
             grep.grep(new FileReader(filePath),writer,regex);
+            long end = System.currentTimeMillis();
+
+            System.out.println();
+            System.out.println("Time: "+(end-start));
         } catch (IOException e) {
+
             e.printStackTrace();
         }
 
-        long end = System.currentTimeMillis();
 
-        System.out.println();
-        System.out.println("Time: "+(end-start));
     }
 }
