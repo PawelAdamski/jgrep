@@ -78,5 +78,10 @@
             <artifactId>unix4j-command</artifactId>
             <version>0.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+            <version>1.72</version>
+        </dependency>
     </dependencies>
 </project>
