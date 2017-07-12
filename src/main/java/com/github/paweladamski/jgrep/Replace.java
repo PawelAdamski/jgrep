@@ -2,7 +2,7 @@ package com.github.paweladamski.jgrep;
 
 import java.util.function.Function;
 
-public class Replace implements Function<Line,String> {
+public class Replace implements Function<Line, String> {
 
     private String replacement;
 

@@ -11,7 +11,7 @@ public class CommandLineOptions {
     @Parameter(description = "Files")
     public List<File> files = new ArrayList<>();
 
-    @Parameter(names={ "-d", "--replace" }, description = "String used to replace matching.")
+    @Parameter(names = {"-r", "--replace"}, description = "String used to replace matching.")
     public String replacement;
 
     public String regex;

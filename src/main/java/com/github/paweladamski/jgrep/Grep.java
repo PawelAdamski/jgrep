@@ -1,17 +1,7 @@
 package com.github.paweladamski.jgrep;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.Writer;
-import java.nio.CharBuffer;
+import java.io.*;
 import java.util.List;
-import java.util.Scanner;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,10 +29,13 @@ public class Grep {
                 }
                 somethingFound = true;
                 for (Function<Line, String> lp : lineProcessors) {
-                    line = lp.apply(new Line(line,matcher));
+                    line = lp.apply(new Line(line, matcher));
                 }
                 writer.write(line.toString());
             }
+        }
+        if (somethingFound) {
+            writer.newLine();
         }
         writer.flush();
         reader.close();

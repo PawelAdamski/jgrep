@@ -14,14 +14,14 @@
     </properties>
 
     <build>
-        <finalName>jecho</finalName>
+        <finalName>jgrep</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.github.paweladamski.JEcho</mainClass>
+                            <mainClass>com.github.paweladamski.jgrep.Application</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
