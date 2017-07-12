@@ -31,7 +31,7 @@ public class Grep {
                 for (Function<Line, String> lp : lineProcessors) {
                     line = lp.apply(new Line(line, matcher));
                 }
-                writer.write(line.toString());
+                writer.write(line);
             }
         }
         if (somethingFound) {
