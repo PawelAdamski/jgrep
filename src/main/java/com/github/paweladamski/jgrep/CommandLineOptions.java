@@ -14,6 +14,10 @@ public class CommandLineOptions {
     @Parameter(names = {"-r", "--replace"}, description = "String used to replace matching.")
     public String replacement;
 
+
+    @Parameter(names = "--help", help = true)
+    public boolean help;
+
     public String regex;
 
 }

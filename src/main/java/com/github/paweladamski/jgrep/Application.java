@@ -46,13 +46,25 @@ public class Application {
     }
 
     private static CommandLineOptions parseCommandLine(String[] args) {
-        String[] nargs = Arrays.copyOfRange(args, 1, args.length);
         CommandLineOptions cmdLineOptions = new CommandLineOptions();
-        cmdLineOptions.regex = args[0];
-        JCommander.newBuilder()
+        JCommander jCommander = JCommander.newBuilder()
                 .addObject(cmdLineOptions)
-                .build()
-                .parse(nargs);
+                .build();
+        if (args.length == 0) {
+            jCommander.usage();
+            System.exit(0);
+        }
+
+        String[] nargs = Arrays.copyOfRange(args, 1, args.length);
+
+        cmdLineOptions.regex = args[0];
+
+
+        jCommander.parse(nargs);
+        if (cmdLineOptions.help) {
+            jCommander.usage();
+            System.exit(0);
+        }
         return cmdLineOptions;
     }
 }
